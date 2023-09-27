@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class MyDto14 {
-    private String hobby;
-    private String food;
+    private String title;
+    private String body;
 }
