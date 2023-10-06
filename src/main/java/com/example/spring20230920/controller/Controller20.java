@@ -277,11 +277,50 @@ public class Controller20 {
                 list.add(resultSet.getString(1));
             }
         }
+
         model.addAttribute("countryList", list);
     }
 
     @GetMapping("sub11")
-    public void method11(String country, Model model) {
+    public void method11(@RequestParam("country")List<String> countryList) throws SQLException {
+        // /main20/sub11?country=UK&country=USA
+        // /main20/sub11?country=UK&country=Japan&country=USA
 
+        String questionMarks = "";
+
+        for (int i = 0; i < countryList.size(); i++) {
+            questionMarks += "?";
+
+            if (i< countryList.size()-1) {
+                questionMarks += ", ";
+            }
+        }
+
+
+        String sql = """
+                SELECT *
+                FROM suppliers
+                WHERE country IN (
+             """
+                + questionMarks + ")";
+
+        Connection connection = dataSource.getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+
+        for (int i = 0; i < countryList.size(); i++) {
+            statement.setString(i+1, countryList.get(i));
+        }
+
+        ResultSet resultSet = statement.executeQuery();
+
+        try (connection; statement; resultSet) {
+            System.out.println("##########공급자 목록#########");
+            while (resultSet.next()) {
+                String name = resultSet.getString(2);
+                String country = resultSet.getString(7);
+
+                System.out.println(name + " : " + country);
+            }
+        }
     }
 }
