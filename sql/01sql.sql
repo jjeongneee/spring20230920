@@ -13,3 +13,4 @@ FROM w3schools.customers;
 select *
 from w3schools.customers;
 
+SELECT * FROM employees;
