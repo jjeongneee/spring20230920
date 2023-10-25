@@ -40,7 +40,7 @@ public class Controller38 {
     @ResponseBody
     public String method2() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
