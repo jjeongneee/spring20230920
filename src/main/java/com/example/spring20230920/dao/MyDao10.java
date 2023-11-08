@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Mapper
 public interface MyDao10 {
@@ -57,4 +58,10 @@ public interface MyDao10 {
             WHERE EmployeeID = #{id}
             """)
     MyDto33Employee getEmployeeById(Integer id);
+
+    @Select("""
+            SELECT CustomerID FROM customers
+            ORDER BY CustomerID
+            """)
+    List<Integer> getCustomerIdList();
 }
