@@ -26,4 +26,18 @@ public interface MyDao10 {
             WHERE CustomerID = 50
             """)
     MyDto34Customer getCustomer();
+
+    @Select("""
+            SELECT 
+             CustomerID id,
+             CustomerName,
+             ContactName,
+             address,
+             City,
+             PostalCode,
+             Country
+             FROM customers
+            WHERE CustomerID = #{id}
+            """)
+    MyDto34Customer getCustomerById(Integer id);
 }

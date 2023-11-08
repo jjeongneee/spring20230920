@@ -3,6 +3,7 @@ package com.example.spring20230920.controller;
 import com.example.spring20230920.dao.MyDao10;
 import com.example.spring20230920.domain.MyDto34Customer;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,5 +36,18 @@ public class RestController1 {
     @ResponseBody
     public MyDto34Customer method3() {
         return dao.getCustomer();
+    }
+
+    // /api/main1/sub4?id=33
+    @GetMapping("sub4")
+    @ResponseBody
+    public ResponseEntity<MyDto34Customer> method4(Integer id) {
+        MyDto34Customer customer = dao.getCustomerById(id);
+
+        if(customer == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(customer);
     }
 }
